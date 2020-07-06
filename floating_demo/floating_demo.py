@@ -1,3 +1,9 @@
+"""
+Demo for "floating" widgets with Qt for Python.
+
+The order of layout adding is not important! What counts is the order of widget
+creation! Here the text label needs to be created first! Then the button Voila!
+"""
 from PySide2 import QtCore, QtWidgets
 import floating_demo_ui
 
@@ -17,9 +23,6 @@ class Demo(QtWidgets.QMainWindow):
         self.ui.gridLayout.removeItem(self.ui.layout_1)
         self.ui.gridLayout.removeItem(self.ui.layout_0)
 
-        # the order of layout adding is not important!
-        # what counts is the order of widget creation!
-        # the label needs to be created first! Then the button Voila!
         self.ui.gridLayout.addLayout(self.ui.layout_0, 0, 0)
         self.ui.gridLayout.addLayout(self.ui.layout_1, 0, 0)
         self.ui.layout_1.setAlignment(
