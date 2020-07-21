@@ -6,6 +6,8 @@ An attempt in most proper QThread usage.
 """
 import time
 import uuid
+
+import shiboken2
 from PySide2 import QtWidgets, QtCore
 
 
@@ -33,16 +35,18 @@ class SimpleThreadDemo(QtWidgets.QMainWindow):
         self.thread.start()
 
     def closeEvent(self, event):
-        # making sure all is shut down correctly
-        try:
+        """
+        Make sure all is shut down properly.
+
+        With `shiboken2.isValid` we can avoid try/excepting this
+          RuntimeError: Internal C++ object already deleted.
+        which would be inevitable without further book keeping.
+        """
+        if shiboken2.isValid(self.thread):
             # If not interrupted already, request and wait as long as it takes.
             self.thread.requestInterruption()
             while self.thread.isRunning():
                 time.sleep(0.05)
-        except RuntimeError:
-            # If already stopped this "RuntimeError: Internal C++ object already deleted."
-            # is inevitable without another variable on the thread.
-            pass
 
         return super(SimpleThreadDemo, self).closeEvent(event)
 
