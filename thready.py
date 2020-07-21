@@ -1,3 +1,10 @@
+"""
+An attempt in most proper QThread usage.
+* cares for the thread to finish naturally
+* cares for it to finish on window close
+* also when it has finished before already
+"""
+import time
 import uuid
 from PySide2 import QtWidgets, QtCore
 
@@ -6,44 +13,48 @@ class SimpleThreadDemo(QtWidgets.QMainWindow):
     def __init__(self):
         super(SimpleThreadDemo, self).__init__()
         self.setWindowTitle(self.__class__.__name__)
-
         widget = QtWidgets.QWidget(self)
+        self.setMinimumWidth(350)
         self.setCentralWidget(widget)
+
+        # just stack a button and a line edit
         layout = QtWidgets.QVBoxLayout(widget)
         button = QtWidgets.QPushButton('Stop')
-        layout.addWidget(button)
         line_edit = QtWidgets.QLineEdit()
+        layout.addWidget(button)
         layout.addWidget(line_edit)
 
+        # build the thread, connect its message signal to the line edit
         self.thread = GarbageThrower(self)
         self.thread.garbage.connect(line_edit.setText)
         self.thread.finished.connect(self.thread.deleteLater)
-        button.clicked.connect(self.thread.stop)
+        # connect the button to requestInterruption and start it
+        button.clicked.connect(self.thread.requestInterruption)
         self.thread.start()
 
     def closeEvent(self, event):
-        if not self.thread._stopped:
-            self.thread.stop()
+        # making sure all is shut down correctly
+        try:
+            # If not interrupted already, request and wait as long as it takes.
+            self.thread.requestInterruption()
             while self.thread.isRunning():
-                pass
+                time.sleep(0.05)
+        except RuntimeError:
+            # If already stopped this "RuntimeError: Internal C++ object already deleted."
+            # is inevitable without another variable on the thread.
+            pass
+
         return super(SimpleThreadDemo, self).closeEvent(event)
 
 
 class GarbageThrower(QtCore.QThread):
     garbage = QtCore.Signal(str)
 
-    def __init__(self, parent):
-        super(GarbageThrower, self).__init__(parent)
-        self._stopped = False
-
-    def stop(self):
-        self._stopped = True
-
     def run(self):
-        while not self._stopped:
+        while not self.isInterruptionRequested():
             self.garbage.emit(str(uuid.uuid4()))
             self.msleep(100)
-        self.garbage.emit('self._stopped: %s' % self._stopped)
+        self.garbage.emit('self.isInterruptionRequested: %s' % self.isInterruptionRequested())
 
 
 def main():
