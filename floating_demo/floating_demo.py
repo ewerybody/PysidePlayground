@@ -5,7 +5,7 @@ The order of layout adding is not important! What counts is the order of widget
 creation! Here the text label needs to be created first! Then the button Voila!
 """
 from PySide2 import QtCore, QtWidgets
-import floating_demo_ui
+import ui_file
 
 
 class Demo(QtWidgets.QMainWindow):
@@ -17,7 +17,7 @@ class Demo(QtWidgets.QMainWindow):
         lyt = QtWidgets.QFormLayout(w)
 
         self.lw = QtWidgets.QWidget(self)
-        self.ui = floating_demo_ui.Ui_Form()
+        self.ui = ui_file.get_module(__file__)
         self.ui.setupUi(self.lw)
 
         self.ui.gridLayout.removeItem(self.ui.layout_1)
@@ -26,7 +26,9 @@ class Demo(QtWidgets.QMainWindow):
         self.ui.gridLayout.addLayout(self.ui.layout_0, 0, 0)
         self.ui.gridLayout.addLayout(self.ui.layout_1, 0, 0)
         self.ui.layout_1.setAlignment(
-            self.ui.toolButton, QtCore.Qt.AlignBottom|QtCore.Qt.AlignRight)
+            self.ui.button_right, QtCore.Qt.AlignCenter|QtCore.Qt.AlignRight)
+        self.ui.layout_1.setAlignment(
+            self.ui.button_left, QtCore.Qt.AlignCenter|QtCore.Qt.AlignLeft)
 
         lyt.addRow(self.lw)
 

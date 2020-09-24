@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>809</width>
+    <width>814</width>
     <height>441</height>
    </rect>
   </property>
@@ -32,8 +32,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>635</width>
-          <height>415</height>
+          <width>472</width>
+          <height>481</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -54,15 +54,12 @@
     </layout>
    </item>
    <item row="0" column="1">
-    <layout class="QVBoxLayout" name="layout_1">
-     <property name="rightMargin">
+    <layout class="QHBoxLayout" name="layout_1">
+     <property name="margin">
       <number>40</number>
      </property>
-     <property name="bottomMargin">
-      <number>40</number>
-     </property>
-     <item alignment="Qt::AlignRight|Qt::AlignBottom">
-      <widget class="QPushButton" name="toolButton">
+     <item>
+      <widget class="QPushButton" name="button_left">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -76,7 +73,26 @@
         </size>
        </property>
        <property name="text">
-        <string>Floater</string>
+        <string>&lt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_right">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>&gt;</string>
        </property>
       </widget>
      </item>
