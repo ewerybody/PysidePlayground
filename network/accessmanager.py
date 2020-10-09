@@ -21,6 +21,7 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         self.set_label(DEFAULT_TEXT)
         self.ready_ui()
 
+        self._manager = None
         self._error_connected = False
         self._canceled = False
 
@@ -37,11 +38,13 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         self._t0 = time.time()
         self._chunks = 0
         self._canceled = False
-        manager = QtNetwork.QNetworkAccessManager(self)
-        # manager.finished[QtNetwork.QNetworkReply].connect(self._on_finish)
+
+        if self._manager is None:
+            self._manager = QtNetwork.QNetworkAccessManager(self)
+
         request = QtNetwork.QNetworkRequest(QtCore.QUrl(url))
         request.setRawHeader(b'User-Agent', b'MyOwnBrowser 1.0')
-        reply = manager.get(request)
+        reply = self._manager.get(request)
         reply.finished.connect(self._on_finish)
         reply.downloadProgress.connect(self._on_progress)
         reply.error[QtNetwork.QNetworkReply.NetworkError].connect(self._on_error)
