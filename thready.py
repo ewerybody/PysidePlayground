@@ -58,7 +58,9 @@ class GarbageThrower(QtCore.QThread):
         while not self.isInterruptionRequested():
             self.garbage.emit(str(uuid.uuid4()))
             self.msleep(100)
+
         self.garbage.emit('self.isInterruptionRequested: %s' % self.isInterruptionRequested())
+        # run() is exiting here and the finished signal will be emitted.
 
 
 def main():
@@ -67,5 +69,6 @@ def main():
     win.show()
     app.exec_()
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
