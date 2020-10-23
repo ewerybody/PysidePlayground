@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(794, 265)
+        MainWindow.resize(794, 254)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.formLayout = QFormLayout(self.centralwidget)
@@ -27,15 +27,10 @@ class Ui_MainWindow(object):
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.url)
 
-        self.size_label = QLabel(self.centralwidget)
-        self.size_label.setObjectName(u"size_label")
-
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.size_label)
-
         self.button = QPushButton(self.centralwidget)
         self.button.setObjectName(u"button")
 
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.button)
+        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.button)
 
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
@@ -45,13 +40,13 @@ class Ui_MainWindow(object):
         self.cancel_button = QPushButton(self.centralwidget)
         self.cancel_button.setObjectName(u"cancel_button")
 
-        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.cancel_button)
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.cancel_button)
 
         self.progress = QProgressBar(self.centralwidget)
         self.progress.setObjectName(u"progress")
         self.progress.setValue(24)
 
-        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.progress)
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.progress)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -74,12 +69,27 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
 
-        self.formLayout.setLayout(3, QFormLayout.FieldRole, self.horizontalLayout)
+        self.formLayout.setLayout(4, QFormLayout.FieldRole, self.horizontalLayout)
+
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.size_label = QLabel(self.centralwidget)
+        self.size_label.setObjectName(u"size_label")
+
+        self.verticalLayout.addWidget(self.size_label)
+
+        self.error_label = QLabel(self.centralwidget)
+        self.error_label.setObjectName(u"error_label")
+
+        self.verticalLayout.addWidget(self.error_label)
+
+
+        self.formLayout.setLayout(2, QFormLayout.FieldRole, self.verticalLayout)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 794, 27))
+        self.menubar.setGeometry(QRect(0, 0, 794, 26))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -92,11 +102,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.size_label.setText("")
         self.button.setText(QCoreApplication.translate("MainWindow", u"Get Size", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"URL to look up:", None))
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
         self.delay_check.setText(QCoreApplication.translate("MainWindow", u"deliberately delay", None))
         self.delay_time.setSuffix(QCoreApplication.translate("MainWindow", u"s", None))
+        self.size_label.setText("")
+        self.error_label.setText("")
     # retranslateUi
 

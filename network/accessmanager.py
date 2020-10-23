@@ -19,6 +19,7 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         self._chunks = 0
         self._t0 = 0
         self.set_label(DEFAULT_TEXT)
+        self.ui.error_label.hide()
         self.ready_ui()
 
         self._manager = None
@@ -65,7 +66,7 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         if total == -1:
             prog_value = 1
         else:
-            prog_value = int(100 * received/total)
+            prog_value = int(100 * received / total)
         print('received/total/%%: %s %s %s%%' % (received, total, prog_value))
 
         self.ui.progress.setValue(prog_value)
@@ -83,7 +84,7 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         # currently doing nothing ...
         reply = self.sender()
         thread = reply.thread()
-        reply.size()
+        print(f'_on_ready_read size: {reply.size()}')
         self._try_error_connection(reply)
 
     def set_label(self, text):
@@ -101,6 +102,8 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         self.ui.url.setFocus()
 
     def disable_ui(self):
+        self.ui.error_label.hide()
+        self.ui.error_label.setText('')
         self.set_label(DEFAULT_TEXT)
         for widget in (self.ui.button, self.ui.url):
             widget.setEnabled(False)
@@ -110,10 +113,19 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         self.ui.progress.show()
 
     def _on_error(self, error):
+        """A thrown error does not mean its finished. There might be more!"""
+        self.ui.error_label.show()
         reply = self.sender()
-        self.set_label(f'<b>Error</b>: {error.name.decode()}<br>'
-                       f'<b>errorString</b>: {reply.errorString()}')
-        self.ready_ui()
+        msg = f'<b>Error</b>: {error.name.decode()}<br><b>errorString</b>: {reply.errorString()}'
+        current = self.ui.error_label.text()
+        if not current:
+            self.ui.error_label.setText(msg)
+        elif current != msg:
+            self.ui.error_label.setText(f'{current}<br>{msg}')
+            print(f'Error thrown: {error.name.decode()}\n  {reply.errorString()}')
+        else:
+            # Label is already set. Nothing to do.
+            pass
 
     def _visual_delay(self):
         if self.ui.delay_check.isChecked():
@@ -152,5 +164,6 @@ def main():
     win.show()
     app.exec_()
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
