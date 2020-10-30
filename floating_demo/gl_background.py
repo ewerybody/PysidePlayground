@@ -399,6 +399,7 @@ class GLWidget(QGLWidget):
 class Demo(QMainWindow):
     def __init__(self):
         super(Demo, self).__init__()
+        self.setWindowTitle('OpenGL Background Demo')
 
         w = QWidget(self)
         self.setCentralWidget(w)
@@ -422,17 +423,6 @@ class Demo(QMainWindow):
         self.ui.layout_1.setAlignment(self.ui.button_left, Qt.AlignCenter | Qt.AlignLeft)
 
         lyt.addRow(self.lw)
-
-
-# class Win(QMainWindow):
-#     def __init__(self):
-#         super(Win, self).__init__()
-#         widget = QWidget(self)
-#         self.setCentralWidget(widget)
-#         layout = QVBoxLayout(widget)
-
-#         gl_widget = GLWidget()
-#         layout.addWidget(gl_widget)
 
 
 if __name__ == '__main__':
