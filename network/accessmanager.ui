@@ -11,47 +11,68 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string notr="true">MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="url"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="button">
-      <property name="text">
-       <string>Get Size</string>
-      </property>
-     </widget>
-    </item>
+    <property name="fieldGrowthPolicy">
+     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+    </property>
     <item row="0" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>URL to look up:</string>
+       <string notr="true">URL to look up:</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="url"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="button">
+      <property name="text">
+       <string notr="true">Get Size</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="size_label">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="error_label">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
      <widget class="QPushButton" name="cancel_button">
       <property name="text">
-       <string>Cancel</string>
+       <string notr="true">Cancel</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="2" column="1">
      <widget class="QProgressBar" name="progress">
       <property name="value">
        <number>24</number>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout">
+    <item row="3" column="1">
+     <layout class="QHBoxLayout" name="bottom_layout">
       <item>
        <widget class="QCheckBox" name="delay_check">
         <property name="text">
-         <string>deliberately delay</string>
+         <string notr="true">deliberately delay</string>
         </property>
        </widget>
       </item>
@@ -89,24 +110,6 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="size_label">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="error_label">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -115,7 +118,7 @@
      <x>0</x>
      <y>0</y>
      <width>794</width>
-     <height>26</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>

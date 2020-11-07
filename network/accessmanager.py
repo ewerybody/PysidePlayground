@@ -1,5 +1,5 @@
 import time
-from PySide2 import QtWidgets, QtNetwork, QtCore
+from PySide2 import QtWidgets, QtNetwork, QtCore, QtGui
 
 import ui_file
 
@@ -16,6 +16,10 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         self.ui.button.clicked.connect(self.lookup)
         self.ui.url.returnPressed.connect(self.lookup)
         self.ui.cancel_button.clicked.connect(self._on_cancel)
+        self.setWindowTitle(self.__class__.__name__)
+        self.busy_label = Spinner(self)
+        self.ui.bottom_layout.insertWidget(2, self.busy_label)
+        self.busy_label.hide()
         self._chunks = 0
         self._t0 = 0
         self.set_label(DEFAULT_TEXT)
@@ -28,6 +32,8 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
 
     def lookup(self):
         self.disable_ui()
+        self.busy_label.show()
+        # starting delayed to improve ux
         QtCore.QTimer(self).singleShot(200, self._lookup)
 
     def _lookup(self):
@@ -76,6 +82,10 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
 
     def _on_finish(self):
         reply = self.sender()
+
+        data = reply.readAll().data()
+        print(f'data:\n{data[:256].decode()}\n...')
+
         self.append_label(f' <i> - in {time.time() - self._t0:.2f} seconds.</i>')
         self._visual_delay()
         self.ready_ui()
@@ -95,6 +105,7 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
 
     def ready_ui(self, *stuff):
         self.ui.progress.hide()
+        self.busy_label.hide()
         self.ui.cancel_button.hide()
         for widget in (self.ui.button, self.ui.url):
             widget.setEnabled(True)
@@ -156,6 +167,45 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
     def _on_cancel(self):
         self._canceled = True
         self
+
+
+class Spinner(QtWidgets.QLabel):
+    def __init__(self, parent=None):
+        super(Spinner, self).__init__(parent)
+        import os
+        THIS_DIR = os.path.abspath(os.path.dirname(__file__))
+        self._pixmap_resource = QtGui.QPixmap(os.path.join(THIS_DIR, 'spinner.svg'))
+        self._pixmaps = {}
+        self._speed = 20
+        self._rotation = 0
+        self._size = 32
+
+        self.update_timer = QtCore.QTimer(self)
+        self.update_timer.setInterval(30)
+        self.update_timer.timeout.connect(self._update)
+
+    def show(self):
+        self.update_timer.start()
+        super(Spinner, self).show()
+
+    def hide(self):
+        self.update_timer.stop()
+        self._rotation = 0
+        super(Spinner, self).hide()
+
+    def _update(self):
+        self._rotation = (self._rotation + self._speed) % 360
+        this_pixmap = self._pixmaps.get(self._rotation)
+        if this_pixmap is None:
+            this_pixmap = self._pixmap_resource.transformed(
+                QtGui.QTransform().rotate(self._rotation),
+                QtCore.Qt.SmoothTransformation
+            )
+            xoff = (this_pixmap.width() - self._size) / 2
+            yoff = (this_pixmap.height() - self._size) / 2
+            this_pixmap = this_pixmap.copy(xoff, yoff, self._size, self._size)
+            self._pixmaps[self._rotation] = this_pixmap
+        self.setPixmap(this_pixmap)
 
 
 def main():
