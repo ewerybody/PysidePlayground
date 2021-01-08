@@ -166,7 +166,6 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
 
     def _on_cancel(self):
         self._canceled = True
-        self
 
 
 class Spinner(QtWidgets.QLabel):
