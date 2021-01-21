@@ -16,7 +16,10 @@ class Widget(QtWidgets.QWidget):
         self.button = QtWidgets.QPushButton(self)
         self.button.setObjectName('button')
         self.button.setText('TEST')
-        self.field = QtWidgets.QTextEdit()
+        # self.field = QtWidgets.QTextEdit()
+        # self.field_set_func = self.field.setText
+        self.field = QtWidgets.QPlainTextEdit()
+        self.field_set_func = self.field.setPlainText
         layout.addWidget(self.field)
         layout.addWidget(self.button)
 
@@ -40,7 +43,7 @@ class Widget(QtWidgets.QWidget):
             print('     %s took %.3fs' % ('clear', time.time() - t00))
 
             t00 = time.time()
-            self.field.setText(f'{num_chars} {rnd}')
+            self.field_set_func(f'{num_chars} {rnd}')
             print('     %s took %.3fs' % ('setText', time.time() - t00))
 
             t00 = time.time()
