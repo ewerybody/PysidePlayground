@@ -1,6 +1,10 @@
 import time
 import random
-from PySide6 import QtCore, QtWidgets
+
+try:
+    from PySide6 import QtCore, QtWidgets
+except ImportError:
+    from PySide2 import QtCore, QtWidgets
 
 
 MAX_LOOPS = 256
