@@ -21,18 +21,42 @@ class SimpleThreadDemo(QtWidgets.QMainWindow):
 
         # just stack a button and a line edit
         layout = QtWidgets.QVBoxLayout(widget)
-        button = QtWidgets.QPushButton('Stop')
-        line_edit = QtWidgets.QLineEdit()
-        layout.addWidget(button)
-        layout.addWidget(line_edit)
+        self.button = QtWidgets.QPushButton()
+        self.line_edit = QtWidgets.QLineEdit()
+        layout.addWidget(self.button)
+        layout.addWidget(self.line_edit)
+        self.button.clicked.connect(self.toggle_thread)
 
-        # build the thread, connect its message signal to the line edit
+        self.thread = None
+        self.start()
+
+    def start(self):
+        """
+        Build the thread, connect its message signals and start it.
+        """
+        # Pass `self` so the thread can parent to!
         self.thread = GarbageThrower(self)
-        self.thread.garbage.connect(line_edit.setText)
-        self.thread.finished.connect(self.thread.deleteLater)
-        # connect the button to requestInterruption and start it
-        button.clicked.connect(self.thread.requestInterruption)
+        self.thread.garbage.connect(self.line_edit.setText)
+        self.thread.finished.connect(self.stopped)
         self.thread.start()
+        self.button.setText('Stop')
+
+    def stop(self):
+        if self.thread is None:
+            return
+        self.thread.requestInterruption()
+
+    def stopped(self):
+        thread = self.sender()
+        thread.deleteLater()
+        self.thread = None
+        self.button.setText('Start')
+
+    def toggle_thread(self):
+        if self.thread is None:
+            self.start()
+        else:
+            self.stop()
 
     def closeEvent(self, event):
         """
@@ -42,7 +66,7 @@ class SimpleThreadDemo(QtWidgets.QMainWindow):
           RuntimeError: Internal C++ object already deleted.
         which would be inevitable without further book keeping.
         """
-        if shiboken2.isValid(self.thread):
+        if shiboken2.isValid(self.thread) and self.thread is not None:
             # If not interrupted already, request and wait as long as it takes.
             self.thread.requestInterruption()
             while self.thread.isRunning():
