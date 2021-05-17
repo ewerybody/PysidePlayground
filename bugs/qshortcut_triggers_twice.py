@@ -1,4 +1,13 @@
+"""
+This seems fixed now!
+"""
+
 from PySide6 import QtGui, QtCore, QtWidgets
+
+if QtCore.__version_info__[0] > 5:
+    from PySide6.QtGui import QShortcut
+else:
+    from PySide2.QtWidgets import QShortcut
 
 
 class AList(QtWidgets.QListWidget):
@@ -6,10 +15,10 @@ class AList(QtWidgets.QListWidget):
         super(AList, self).__init__(parent)
 
         # BAD: inline - twiggers twice
-        QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete), self, self.remove_selected)
+        QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Delete), self, self.remove_selected)
 
         # Good: twiggers once
-        shortcut = QtGui.QShortcut(self)
+        shortcut = QShortcut(self)
         shortcut.setKey(QtGui.QKeySequence(QtCore.Qt.Key_D))
         shortcut.activated.connect(self.remove_selected)
 
