@@ -1,3 +1,6 @@
+"""
+Demo for the Menu icon size issue https://bugreports.qt.io/browse/QTBUG-2612
+"""
 from PySide6 import QtCore, QtWidgets, QtGui
 
 
