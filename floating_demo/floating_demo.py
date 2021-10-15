@@ -4,14 +4,18 @@ Demo for "floating" or layered layouts with Qt for Python widgets.
 The order of layout adding is not important! What counts is the order of widget
 CREATION! Here the text label needs to be created first! Then the button Voila!
 """
+import os
 from PySide2 import QtCore, QtWidgets
 import ui_file
+
+THIS_DIR = os.path.abspath(os.path.dirname(__file__))
+STYLE = os.path.join(THIS_DIR, 'style.qss')
 
 
 class Demo(QtWidgets.QMainWindow):
     def __init__(self):
         super(Demo, self).__init__()
-
+        self.setWindowTitle('Floating Widgets Demo')
         w = QtWidgets.QWidget(self)
         self.setCentralWidget(w)
         lyt = QtWidgets.QFormLayout(w)
@@ -19,6 +23,9 @@ class Demo(QtWidgets.QMainWindow):
         self.lw = QtWidgets.QWidget(self)
         self.ui = ui_file.get_module(__file__)
         self.ui.setupUi(self.lw)
+
+        with open(STYLE) as fobj:
+            self.setStyleSheet(fobj.read())
 
         # No need to do anything with the layout at its current grid position
         # self.ui.gridLayout.removeItem(self.ui.layout_0)

@@ -18,6 +18,7 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(814, 441)
+        Form.setWindowTitle(u"Form")
         self.gridLayout = QGridLayout(Form)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setSizeConstraint(QLayout.SetMinimumSize)
@@ -46,12 +47,17 @@ class Ui_Form(object):
         self.gridLayout.addLayout(self.layout_0, 0, 0, 1, 1)
 
         self.layout_1 = QHBoxLayout()
-        self.layout_1.setContentsMargins(40, 40, 40, 40)
         self.layout_1.setObjectName(u"layout_1")
+        self.layout_1.setContentsMargins(40, 40, 40, 40)
         self.button_left = QPushButton(Form)
         self.button_left.setObjectName(u"button_left")
         self.button_left.setMinimumSize(QSize(100, 50))
         self.button_left.setMaximumSize(QSize(50, 50))
+        font = QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.button_left.setFont(font)
 
         self.layout_1.addWidget(self.button_left)
 
@@ -59,6 +65,7 @@ class Ui_Form(object):
         self.button_right.setObjectName(u"button_right")
         self.button_right.setMinimumSize(QSize(100, 50))
         self.button_right.setMaximumSize(QSize(50, 50))
+        self.button_right.setFont(font)
 
         self.layout_1.addWidget(self.button_right)
 
@@ -72,10 +79,10 @@ class Ui_Form(object):
     # setupUi
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label.setText(QCoreApplication.translate("Form", u"TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, Te"
                         "xtLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, TextLabel, ", None))
         self.button_left.setText(QCoreApplication.translate("Form", u"<", None))
         self.button_right.setText(QCoreApplication.translate("Form", u">", None))
+        pass
     # retranslateUi
 

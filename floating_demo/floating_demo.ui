@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="sizeConstraint">
@@ -55,7 +55,16 @@
    </item>
    <item row="0" column="1">
     <layout class="QHBoxLayout" name="layout_1">
-     <property name="margin">
+     <property name="leftMargin">
+      <number>40</number>
+     </property>
+     <property name="topMargin">
+      <number>40</number>
+     </property>
+     <property name="rightMargin">
+      <number>40</number>
+     </property>
+     <property name="bottomMargin">
       <number>40</number>
      </property>
      <item>
@@ -71,6 +80,13 @@
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>&lt;</string>
@@ -90,6 +106,13 @@
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>&gt;</string>

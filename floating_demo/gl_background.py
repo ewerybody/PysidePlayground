@@ -41,6 +41,7 @@
 
 """PySide2 port of the opengl/legacy/overpainting example from Qt v5.x"""
 
+import os
 import sys
 import math, random
 from PySide2.QtCore import *
@@ -64,6 +65,8 @@ except ImportError:
     messageBox.exec_()
     sys.exit(1)
 
+THIS_DIR = os.path.abspath(os.path.dirname(__file__))
+STYLE = os.path.join(THIS_DIR, 'style.qss')
 
 class Bubble:
     def __init__(self, position, radius, velocity):
@@ -400,6 +403,8 @@ class Demo(QMainWindow):
     def __init__(self):
         super(Demo, self).__init__()
         self.setWindowTitle('OpenGL Background Demo')
+        with open(STYLE) as fobj:
+            self.setStyleSheet(fobj.read())
 
         w = QWidget(self)
         self.setCentralWidget(w)
