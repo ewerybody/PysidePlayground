@@ -18,16 +18,18 @@ class Widget(QtWidgets.QWidget):
         return super().mousePressEvent(event)
 
     def enterEvent(self, event: QtCore.QEvent) -> None:
-        pos = self.check.geometry().center()
-        print('pos: %s' % pos)
-        hover_event = QtGui.QHoverEvent(QtGui.QHoverEvent.HoverEnter, pos, pos)
+        QtWidgets.QApplication.sendEvent(self.check, event)
+        hover_event = QtGui.QHoverEvent(
+            QtGui.QHoverEvent.HoverEnter, QtCore.QPoint(0, 0), QtCore.QPoint(-1, -1)
+        )
         QtWidgets.QApplication.sendEvent(self.check, hover_event)
         return super().enterEvent(event)
 
     def leaveEvent(self, event: QtCore.QEvent) -> None:
-        pos = self.check.geometry().center()
-        print('pos: %s' % pos)
-        hover_event = QtGui.QHoverEvent(QtGui.QHoverEvent.HoverLeave, pos, pos)
+        QtWidgets.QApplication.sendEvent(self.check, event)
+        hover_event = QtGui.QHoverEvent(
+            QtGui.QHoverEvent.HoverLeave, QtCore.QPoint(-1, -1), QtCore.QPoint(0, 0)
+        )
         QtWidgets.QApplication.sendEvent(self.check, hover_event)
         return super().leaveEvent(event)
 
