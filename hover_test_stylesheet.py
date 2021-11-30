@@ -1,7 +1,7 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 
 
-STYLE_HOVER = 'QCheckBox {background: rgba(255, 0, 0, 150);} QCheckBox:hover {background: red;}'
+STYLE_HOVER = 'QCheckBox {background: rgba(255, 0, 0, 125);} QCheckBox:hover {background: red;}'
 STYLE_NONE = 'QCheckBox {background: transparent} QCheckBox:hover {background: red;}'
 
 
