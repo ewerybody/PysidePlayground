@@ -5,7 +5,8 @@ class Widget(QtWidgets.QWidget):
     def __init__(self):
         super(Widget, self).__init__()
         layout = QtWidgets.QVBoxLayout(self)
-        blank = QtWidgets.QWidget()
+        blank = QtWidgets.QLabel('Thanks <b>dbunk</b>!! 🙏')
+        blank.setFont(QtGui.QFont('', 40))
         blank.setMinimumSize(500, 200)
         layout.addWidget(blank)
         self.check = QtWidgets.QCheckBox('i wanna be hovered!')
