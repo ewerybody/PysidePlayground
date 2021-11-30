@@ -12,19 +12,28 @@ class Widget(QtWidgets.QWidget):
     def __init__(self):
         super(Widget, self).__init__()
         layout = QtWidgets.QVBoxLayout(self)
-        blank = QtWidgets.QLabel('Thanks <b>dbunk</b>!! 🙏')
-        blank.setFont(QtGui.QFont('', 40))
+        blank = QtWidgets.QLabel('Thanks <b>dbunk</b>!! 🙏<br>Thanks <b>Keith Kyzivat</b>!')
+        blank.setFont(QtGui.QFont('', 25))
         blank.setMinimumSize(500, 200)
         layout.addWidget(blank)
 
-        self.check = CBox('i wanna be hovered!')
-        self.check.left.connect(self.send_hover)
-        hlayout = QtWidgets.QHBoxLayout()
-        hlayout.addWidget(self.check)
-        # layout.addWidget(self.check)
-        hlayout.addWidget(QtWidgets.QWidget())
-        hlayout.setStretch(1, 1)
-        layout.addLayout(hlayout)
+        self.check = QtWidgets.QCheckBox('i wanna be hovered!')
+        self.check.installEventFilter(self)
+        self.check_allow_leave = False
+
+        """add whole checkbox so it extends horizontally
+        [(x) check label text                            ]
+        """
+        layout.addWidget(self.check)
+
+        """or add in sub layout so it just occupies the text label space
+        [(x) check label text][blank widget              ]
+        """
+        # hlayout = QtWidgets.QHBoxLayout()
+        # hlayout.addWidget(self.check)
+        # hlayout.addWidget(QtWidgets.QWidget())
+        # hlayout.setStretch(1, 1)
+        # layout.addLayout(hlayout)
 
         self.check.setStyleSheet(STYLE)
 
@@ -42,31 +51,25 @@ class Widget(QtWidgets.QWidget):
         )
         QtWidgets.QApplication.sendEvent(self.check, hover_event)
 
+    def eventFilter(self, _source, event):
+        if event.type() in (QtCore.QEvent.Leave, QtGui.QHoverEvent):
+            if not self.check_allow_leave:
+                self.send_hover()
+            return False
+        return False
+
     def enterEvent(self, event: QtCore.QEvent) -> None:
-        self.check.cheat = True
         self.send_hover(event)
+        self.check_allow_leave = False
         return super().enterEvent(event)
 
     def leaveEvent(self, event: QtCore.QEvent) -> None:
-        self.check.cheat = False
+        self.check_allow_leave = True
         hover_event = QtGui.QHoverEvent(
             QtGui.QHoverEvent.HoverLeave, QtCore.QPoint(-1, -1), QtCore.QPoint(0, 0)
         )
         QtWidgets.QApplication.sendEvent(self.check, event)
         QtWidgets.QApplication.sendEvent(self.check, hover_event)
-        return super().leaveEvent(event)
-
-
-class CBox(QtWidgets.QCheckBox):
-    left = QtCore.Signal()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.cheat = False
-
-    def leaveEvent(self, event: QtCore.QEvent) -> None:
-        if self.cheat:
-            self.left.emit()
         return super().leaveEvent(event)
 
 
