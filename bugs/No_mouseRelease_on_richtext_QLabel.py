@@ -17,7 +17,7 @@ class Demo(QtWidgets.QMainWindow):
         fancy_check1 = FancyCheck(defaullt_text)
         lyt.addRow(fancy_check1)
 
-        richtext = 'Rich text <b>on a Checkbox</b>!!<br>With linebreaks!🤯'
+        richtext = 'Rich text <b>on a Checkbox</b>!!<br>With linebreaks!🤯 (via Qt.AutoText)'
         fancy_check2 = FancyCheck(richtext)
         lyt.addRow(fancy_check2)
 
