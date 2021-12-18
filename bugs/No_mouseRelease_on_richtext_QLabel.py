@@ -1,4 +1,3 @@
-from functools import partial
 from PySide6 import QtCore, QtWidgets, QtGui
 
 
@@ -11,27 +10,39 @@ class Demo(QtWidgets.QMainWindow):
         lyt = QtWidgets.QFormLayout(w)
         self.setWindowTitle('HoverWidget Demo')
 
-        text = 'Wrapped super long checkbox text text text text ... Wrapped super long checkbox text text text text ...'
-        fancy_check1 = FancyCheck(text)
-
+        defaullt_text = (
+            'Wrapped super long checkbox text text text text ... 😛'
+            'Wrapped super long checkbox text text text text ...'
+        )
+        fancy_check1 = FancyCheck(defaullt_text)
         lyt.addRow(fancy_check1)
 
-        text = 'Rich text <b>on a Checkbox</b>!!<br>With linebreaks!🤯'
-        fancy_check2 = FancyCheck(text)
-
+        richtext = 'Rich text <b>on a Checkbox</b>!!<br>With linebreaks!🤯'
+        fancy_check2 = FancyCheck(richtext)
         lyt.addRow(fancy_check2)
+
+        label = QtWidgets.QLabel('Default text just turned `QtCore.Qt.RichText`')
+        label.setTextFormat(QtCore.Qt.RichText)
+        fancy_check3 = FancyCheck()
+        fancy_check3.hover.add_widget(label)
+        lyt.addRow(fancy_check3)
+
+        mdtext = 'Markdown text **on a Checkbox**!!  \rWith linebreaks!🤯'
+        label = QtWidgets.QLabel(mdtext)
+        label.setTextFormat(QtCore.Qt.MarkdownText)
+        fancy_check5 = FancyCheck()
+        fancy_check5.hover.add_widget(label)
+        lyt.addRow(fancy_check5)
 
         self.check_pressed = _PressedIndicator('Mouse Pressed')
         self.check_released = _PressedIndicator('Mouse Released')
-        fancy_check1.hover.mouse_pressed.connect(self.check_pressed.trigger)
-        fancy_check1.hover.mouse_released.connect(self.check_released.trigger)
-        fancy_check2.hover.mouse_pressed.connect(self.check_pressed.trigger)
-        fancy_check2.hover.mouse_released.connect(self.check_released.trigger)
+        for check in fancy_check1, fancy_check2, fancy_check3, fancy_check5:
+            check.hover.mouse_pressed.connect(self.check_pressed.trigger)
+            check.hover.mouse_released.connect(self.check_released.trigger)
         hlyt = QtWidgets.QHBoxLayout()
         hlyt.addWidget(self.check_pressed)
         hlyt.addWidget(self.check_released)
         lyt.addRow(hlyt)
-
 
 
 class FancyCheck(QtWidgets.QWidget):
@@ -44,9 +55,10 @@ class FancyCheck(QtWidgets.QWidget):
 
         self.hover = HoverWidget(self)
         self.hover.set_hover_widget(self.check)
-        self.label = QtWidgets.QLabel(text)
-        self.label.setWordWrap(True)
-        self.hover.add_widget(self.label)
+        if text:
+            self.label = QtWidgets.QLabel(text)
+            self.label.setWordWrap(True)
+            self.hover.add_widget(self.label)
         self.hover.clicked.connect(self.check.toggle)
         self.hlayout.addWidget(self.hover)
         self.hlayout.setStretch(1, 1)
