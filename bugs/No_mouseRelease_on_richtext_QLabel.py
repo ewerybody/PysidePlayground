@@ -1,3 +1,8 @@
+"""
+Demo for a bug report on https://bugreports.qt.io/browse/QTBUG-12982
+'mouserelease event is missing from QLabel with rich test inside'
+"""
+
 from PySide6 import QtCore, QtWidgets, QtGui
 
 
@@ -88,7 +93,9 @@ class HoverWidget(QtWidgets.QWidget):
         return super().enterEvent(event)
 
     def leaveEvent(self, event):
-        if self._send_hover_event(event):
+        if self._send_hover_event(event) and isinstance(
+            self._hover_widget, QtWidgets.QAbstractButton
+        ):
             self._hover_widget.setDown(False)
         return super().leaveEvent(event)
 

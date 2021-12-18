@@ -1,6 +1,13 @@
-from PySide6 import QtCore, QtWidgets, QtGui
+"""
+Demo for a bug report on https://bugreports.qt.io/browse/PYSIDE-1744
+'QLabel with markdown text hides everything past <br> linebreak'
+"""
+
+from PySide6 import QtCore, QtWidgets
+
 
 TEXT = 'here comes a linebreak:<br>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum '
+
 
 class Demo(QtWidgets.QMainWindow):
     def __init__(self):
@@ -8,7 +15,7 @@ class Demo(QtWidgets.QMainWindow):
         w = QtWidgets.QWidget(self)
         w.setMinimumSize(350, 200)
         self.setCentralWidget(w)
-        self.setWindowTitle('HoverWidget Demo')
+        self.setWindowTitle('QLabel Markdown Linebreak Demo')
         layout = QtWidgets.QFormLayout()
         w.setLayout(layout)
 
@@ -19,6 +26,7 @@ class Demo(QtWidgets.QMainWindow):
             label = QtWidgets.QLabel(TEXT)
             label.setWordWrap(True)
             label.setMinimumHeight(50)
+            label.setStyleSheet('background: white')
             label.setTextFormat(style)
             lyt.addWidget(label)
             layout.addWidget(group)
