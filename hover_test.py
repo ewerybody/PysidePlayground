@@ -2,7 +2,7 @@
 Trying to make another widget appear as if the mouse pointer is hovering.
 """
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 
 STYLE = 'QCheckBox {background: transparent} QCheckBox:hover {background: red;}'
@@ -77,4 +77,4 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     main = Widget()
     main.show()
-    app.exec_()
+    app.exec()

@@ -4,7 +4,7 @@ import inspect
 import importlib
 import subprocess
 
-import PySide2
+import PySide6
 
 
 def get_module(from_path):
@@ -40,5 +40,5 @@ def get_ui_class(ui_mod_name):
 
 
 def to_python(path, ui_name, py_name):
-    uic_path = os.path.join(PySide2.__path__[0], 'uic.exe')
+    uic_path = os.path.join(PySide6.__path__[0], 'uic.exe')
     subprocess.call([uic_path, '-g', 'python', ui_name, '-o', py_name], cwd=path)

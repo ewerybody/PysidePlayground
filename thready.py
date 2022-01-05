@@ -7,8 +7,8 @@ An attempt in most proper QThread usage.
 import time
 import uuid
 
-import shiboken2
-from PySide2 import QtWidgets, QtCore
+import shiboken6
+from PySide6 import QtWidgets, QtCore
 
 
 class SimpleThreadDemo(QtWidgets.QMainWindow):

@@ -7,7 +7,7 @@ Python methods to matching widgets manually without ui-compiling.
 * make your methods slots via `@QtCore.Slot()`
 * name your methods `on _ Qt-object-name _ Signal-name`
 """
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 
 class Widget(QtWidgets.QWidget):

@@ -8,7 +8,7 @@ This way you merely need to make your methods fit like:
 * make them slots via `@QtCore.Slot()`
 * name them like `on _ Qt-object-name _ Signal-name`
 """
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 import ui_file
 
 
