@@ -8,8 +8,6 @@ class BuiltInIconsExample(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         self.main_layout = QtWidgets.QVBoxLayout(self)
-        # self.centralWidget().setLayout(self.main_layout)
-        # self.setLayout(self.main_layout)
 
         dit = QtCore.QDirIterator(':', QtCore.QDirIterator.Subdirectories)
         collect = ('png', 'svg', 'ico')
@@ -33,7 +31,8 @@ class BuiltInIconsExample(QtWidgets.QWidget):
         rlist.setIconSize(size)
         rlist.setGridSize(size)
         self.main_layout.addWidget(rlist)
-
+        
+        # It used to be 'trolltech' in PySide1 ... Yeah I tested the code with that version.
         for project_name in 'qt-project.org', 'trolltech':
             if project_name not in things:
                 continue
