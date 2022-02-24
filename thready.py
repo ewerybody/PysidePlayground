@@ -66,7 +66,7 @@ class SimpleThreadDemo(QtWidgets.QMainWindow):
           RuntimeError: Internal C++ object already deleted.
         which would be inevitable without further book keeping.
         """
-        if shiboken2.isValid(self.thread) and self.thread is not None:
+        if shiboken6.isValid(self.thread) and self.thread is not None:
             # If not interrupted already, request and wait as long as it takes.
             self.thread.requestInterruption()
             while self.thread.isRunning():
@@ -91,7 +91,7 @@ def main():
     app = QtWidgets.QApplication([])
     win = SimpleThreadDemo()
     win.show()
-    app.exec_()
+    app.exec()
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
-"""Is that a bug? At lease this illustrates an inconsistency
+"""Is that a bug? At least this illustrates an inconsistency
 between `QListWidget` and `QTreeWidget`s function `setCurrentItem`.
 """
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 ITEMS = 'mango banana apple kiwi apple strawberry'.split()
 

@@ -1,5 +1,6 @@
 """
-This seems fixed now!
+This used to delete multipe items for no apparent reasons.
+Seems fixed now!
 """
 
 from PySide6 import QtGui, QtCore, QtWidgets

@@ -99,7 +99,6 @@ class MenuIconSizeDemo(QtWidgets.QWidget):
             if not check.isChecked():
                 continue
             style += check.text()
-        print('check_pattern: %s' % check_pattern)
         self.button_menu1.setStyleSheet(style.format(size=self._size))
         self.label.setText(LABELS[check_pattern])
 
