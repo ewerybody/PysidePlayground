@@ -1,5 +1,5 @@
 import time
-from PySide2 import QtWidgets, QtNetwork, QtCore, QtGui
+from PySide6 import QtWidgets, QtNetwork, QtCore, QtGui
 
 import ui_file
 
@@ -54,7 +54,7 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         reply = self._manager.get(request)
         reply.finished.connect(self._on_finish)
         reply.downloadProgress.connect(self._on_progress)
-        reply.error[QtNetwork.QNetworkReply.NetworkError].connect(self._on_error)
+        reply.errorOccurred.connect(self._on_error)
         reply.sslErrors.connect(self._on_error)
         reply.readyRead.connect(self._on_ready_read)
 
@@ -84,7 +84,10 @@ class QNetworkAccessManagerDemo(QtWidgets.QMainWindow):
         reply = self.sender()
 
         data = reply.readAll().data()
-        print(f'data:\n{data[:256].decode()}\n...')
+        try:
+            print(f'data: {data[:256].decode()}\n...')
+        except UnicodeDecodeError:
+            print(f'data: {data[:256].decode("latin1")}\n...')
 
         self.append_label(f' <i> - in {time.time() - self._t0:.2f} seconds.</i>')
         self._visual_delay()
