@@ -4,18 +4,21 @@ Demo for "floating" or layered layouts with Qt for Python widgets.
 The order of layout adding is not important! What counts is the order of widget
 CREATION! Here the text label needs to be created first! Then the button Voila!
 """
+
 import os
-from PySide2 import QtCore, QtWidgets
+
+from PySide6 import QtCore, QtWidgets
+
 import ui_file
 
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
-STYLE = os.path.join(THIS_DIR, 'style.qss')
+STYLE = os.path.join(THIS_DIR, "style.qss")
 
 
 class Demo(QtWidgets.QMainWindow):
     def __init__(self):
-        super(Demo, self).__init__()
-        self.setWindowTitle('Floating Widgets Demo')
+        super().__init__()
+        self.setWindowTitle("Floating Widgets Demo")
         w = QtWidgets.QWidget(self)
         self.setCentralWidget(w)
         lyt = QtWidgets.QFormLayout(w)
@@ -35,10 +38,13 @@ class Demo(QtWidgets.QMainWindow):
         self.ui.gridLayout.removeItem(self.ui.layout_1)
         self.ui.gridLayout.addLayout(self.ui.layout_1, 0, 0)
         self.ui.layout_1.setAlignment(
-            self.ui.button_right, QtCore.Qt.AlignCenter|QtCore.Qt.AlignRight)
+            self.ui.button_right,
+            QtCore.Qt.AlignmentFlag.AlignCenter | QtCore.Qt.AlignmentFlag.AlignRight,
+        )
         self.ui.layout_1.setAlignment(
-            self.ui.button_left, QtCore.Qt.AlignCenter|QtCore.Qt.AlignLeft)
-
+            self.ui.button_left,
+            QtCore.Qt.AlignmentFlag.AlignCenter | QtCore.Qt.AlignmentFlag.AlignLeft,
+        )
         lyt.addRow(self.lw)
 
 
@@ -49,5 +55,5 @@ def show():
     app.exec_()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     show()
