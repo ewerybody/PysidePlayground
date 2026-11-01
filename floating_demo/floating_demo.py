@@ -7,18 +7,17 @@ CREATION! Here the text label needs to be created first! Then the button Voila!
 
 import os
 
+import ui_file
 from PySide6 import QtCore, QtWidgets
 
-import ui_file
-
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
-STYLE = os.path.join(THIS_DIR, "style.qss")
+STYLE = os.path.join(THIS_DIR, 'style.qss')
 
 
 class Demo(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Floating Widgets Demo")
+        self.setWindowTitle('Floating Widgets Demo')
         w = QtWidgets.QWidget(self)
         self.setCentralWidget(w)
         lyt = QtWidgets.QFormLayout(w)
@@ -55,5 +54,5 @@ def show():
     app.exec_()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     show()

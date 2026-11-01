@@ -9,4 +9,4 @@ Here you see styled buttons on top of an underlying scroll area with a text labe
 The background layer can also be animated but be aware: Transparency does NOT work on top of these!
 Here the buttons use the SAME stylesheet :/
 
-> ![](gl_background_screenshot.png)
+> ![](gl_background_demo/gl_background_screenshot.png)
