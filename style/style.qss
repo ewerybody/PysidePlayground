@@ -1,0 +1,60 @@
+
+QCheckBox {
+    spacing: 5px;
+    /* color: red; */
+    /* border: 2px solid blue; */
+}
+
+
+QCheckBox::title:hover {
+    /* color: var(--color-light); */
+    color: red;
+    border: 2px solid blue;
+}
+
+QCheckBox::indicator {
+    width: 50px;
+    height: 50px;
+}
+
+QCheckBox::indicator:unchecked {
+/*    image: url(:/images/checkbox_unchecked.png);*/
+    /*background-color: green;*/
+    border: 2px solid green;
+}
+
+QCheckBox::indicator:unchecked:hover {
+/*    image: url(:/images/checkbox_unchecked_hover.png);*/
+    background-color: cyan;
+}
+
+QCheckBox::indicator:unchecked:pressed {
+/*    image: url(:/images/checkbox_unchecked_pressed.png);*/
+    color: yellow;
+}
+
+QCheckBox::indicator:checked {
+/*    image: url(:/images/checkbox_checked.png);*/
+    color: orange;
+
+}
+
+QCheckBox::indicator:checked:hover {
+/*    image: url(:/images/checkbox_checked_hover.png);*/
+    color: magenta;
+}
+
+QCheckBox::indicator:checked:pressed {
+/*    image: url(:/images/checkbox_checked_pressed.png);*/
+    color: #ff007f;
+}
+
+QCheckBox::indicator:indeterminate:hover {
+/*    image: url(:/images/checkbox_indeterminate_hover.png);*/
+    color: #aa55ff;
+}
+
+QCheckBox::indicator:indeterminate:pressed {
+/*    image: url(:/images/checkbox_indeterminate_pressed.png);*/
+    color: gray;
+}
