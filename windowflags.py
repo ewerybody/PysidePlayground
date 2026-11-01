@@ -100,7 +100,7 @@ class PreviewWindow(QtWidgets.QWidget):
 
 class ControllerWindow(QtWidgets.QWidget):
     def __init__(self):
-        super(ControllerWindow, self).__init__()
+        super().__init__()
 
         self.previewWindow = PreviewWindow(self)
 
@@ -124,7 +124,7 @@ class ControllerWindow(QtWidgets.QWidget):
         self.updatePreview()
 
     def updatePreview(self):
-        flags = QtCore.Qt.WindowFlags()
+        flags = QtCore.Qt.WindowType()
 
         if self.windowRadioButton.isChecked():
             flags = QtCore.Qt.WindowType.Window
