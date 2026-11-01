@@ -1,7 +1,7 @@
 """For dynamic usage of Qt Designer files."""
-import os
-import inspect
 import importlib
+import inspect
+import os
 import subprocess
 
 import PySide6
