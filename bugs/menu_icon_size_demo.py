@@ -1,8 +1,8 @@
 """
 Demo for the Menu icon size issue https://bugreports.qt.io/browse/QTBUG-2612
 """
-from PySide6 import QtCore, QtWidgets, QtGui
 
+from PySide6 import QtCore, QtGui, QtWidgets
 
 STYLE_1 = 'QMenu {{icon-size: {size}px;}}'
 STYLE_2 = 'QMenu::item {{background: transparent;}}'
@@ -29,9 +29,10 @@ LABELS = {
     '111': MSG_SIZE_SET,
 }
 
+
 class MenuIconSizeDemo(QtWidgets.QWidget):
     def __init__(self):
-        super(MenuIconSizeDemo, self).__init__()
+        super().__init__()
         self._size = DEFAULT_SIZE
         self.setWindowTitle('MenuIconSizeDemo')
         self.setWindowIcon(self._get_icon())
@@ -43,7 +44,7 @@ class MenuIconSizeDemo(QtWidgets.QWidget):
             self._checks.append(check)
             layout.addWidget(check)
             check.setChecked(True)
-            check.clicked[bool].connect(self._set_style)
+            check.clicked.connect(self._set_style)
 
         self.label = QtWidgets.QLabel()
         font = QtGui.QFont()
@@ -57,10 +58,9 @@ class MenuIconSizeDemo(QtWidgets.QWidget):
         layout.addWidget(self.button1)
         self.button_menu1 = QtWidgets.QMenu(self.button1)
 
-
         hlayout = QtWidgets.QHBoxLayout()
         self.slider = QtWidgets.QSlider(self)
-        self.slider.setOrientation(QtCore.Qt.Horizontal)
+        self.slider.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.spinbox = QtWidgets.QSpinBox()
 
         for x in self.spinbox, self.slider:
@@ -76,11 +76,13 @@ class MenuIconSizeDemo(QtWidgets.QWidget):
     def on_button1_clicked(self):
         self.button_menu1.clear()
         for i in range(3):
-            self.button_menu1.addAction(self._get_icon(), 'Hello %i!' % (i + 1))
+            self.button_menu1.addAction(self._get_icon(), f'Hello {i + 1}!')
         self.button_menu1.popup(QtGui.QCursor.pos())
 
     def _size_value_changed(self):
         widget = self.sender()
+        if not isinstance(widget, (QtWidgets.QSlider, QtWidgets.QSpinBox)):
+            return
         self._size = widget.value()
         self._set_style()
 
@@ -102,15 +104,14 @@ class MenuIconSizeDemo(QtWidgets.QWidget):
         self.button_menu1.setStyleSheet(style.format(size=self._size))
         self.label.setText(LABELS[check_pattern])
 
-
     def _get_icon(self):
         pixmap = QtGui.QPixmap(self._size, self._size)
-        pixmap.fill(QtCore.Qt.transparent)
+        pixmap.fill(QtCore.Qt.GlobalColor.transparent)
         painter = QtGui.QPainter(pixmap)
-        color = QtCore.Qt.green
+        color = QtCore.Qt.GlobalColor.green
         brush = QtGui.QBrush(color)
         painter.setBrush(brush)
-        painter.setPen(QtCore.Qt.NoPen)
+        painter.setPen(QtCore.Qt.PenStyle.NoPen)
         painter.drawEllipse(0, 0, self._size, self._size)
         painter.end()
         return QtGui.QIcon(pixmap)
