@@ -7,10 +7,7 @@ On PySide2 it's going through but doesn't
 do anything.
 """
 
-try:
-    from PySide2 import QtWidgets, QtGui
-except ImportError:
-    from PySide6 import QtWidgets, QtGui
+from PySide6 import QtGui, QtWidgets
 
 
 class Demo(QtWidgets.QMainWindow):
@@ -27,7 +24,7 @@ class Demo(QtWidgets.QMainWindow):
         vlyt.addWidget(label1)
 
         try:
-            font2 = QtGui.QFont(pointSize=30)
+            font2 = QtGui.QFont('Comic Sans', pointSize=30)
             label2 = QtWidgets.QLabel('This is the second label.')
             label2.setFont(font2)
         except AttributeError as error:
