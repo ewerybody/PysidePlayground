@@ -39,7 +39,7 @@
 ##
 ############################################################################
 
-"""PySide2 port of the opengl/legacy/overpainting example from Qt v5.x"""
+"""PySide6 port of the opengl/legacy/overpainting example from Qt v5.x"""
 
 import math
 import os
